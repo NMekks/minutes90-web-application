@@ -1,38 +1,42 @@
-.App {
-  text-align: center;
+/* Your custom styles */
+.row {
+  background-color: #fffdfb;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+#togglePassword:hover {
+  color: #d48166; /* Change the color of the span when hovered */
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.btn-color,
+.form-range::-webkit-slider-thumb {
+  background-color: #d48166;
+  color: #fffdfb;
+  border-color: #d48166; /* Add border color for consistency */
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.btn-color:hover,
+.btn-outline-color:hover {
+  background-color: #c77a61;
+  color: #fffdfb;
+  border-color: #c77a61; /* Add border color for consistency */
 }
 
-.App-link {
-  color: #61dafb;
+.btn-outline-color {
+  border-color: #d48166;
+  color: #d48166;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
+/* Side image styling from your original file */
+#side-img {
+  border-radius: 5px 0px 0px 5px;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Responsive styles for mobile from your original file */
+@media only screen and (max-width: 768px) {
+  #side-img {
+    max-height: 250px;
+    border-radius: 5px 5px 0px 0px;
   }
 }
