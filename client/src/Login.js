@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -26,15 +27,14 @@ const Login = () => {
   return (
     <div className="container d-flex px-5 align-items-center justify-content-center">
       <div className="row row-cols-1 row-cols-md-2 rounded-2 shadow-lg">
-
         {/* --- Image Column --- */}
         <div className="col g-0">
           <div className="card border-0 h-100">
-            <img 
-              src="https://images.unsplash.com/flagged/photo-1572392640988-ba48d1a74457?q=80&w=1528&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" 
-              alt="Login Visual" 
-              className="img-fluid" 
-              id="side-img" 
+            <img
+              src="https://images.unsplash.com/flagged/photo-1572392640988-ba48d1a74457?q=80&w=1528&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+              alt="Login Visual"
+              className="img-fluid"
+              id="side-img"
             />
           </div>
         </div>
@@ -46,17 +46,37 @@ const Login = () => {
 
           <form onSubmit={handleSubmit} noValidate>
             <div className="form-floating mt-3">
-              <input type="email" id="email" placeholder="Enter your email" className="form-control" value={email} onChange={(e) => setEmail(e.target.value)} required />
+              <input
+                type="email"
+                id="email"
+                placeholder="Enter your email"
+                className="form-control"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+              />
               <label htmlFor="email">Email:</label>
             </div>
 
             <div className="input-group mt-3">
               <div className="form-floating">
-                <input type={showPassword ? 'text' : 'password'} id="password" className="form-control" placeholder="Enter your password" value={password} onChange={(e) => setPassword(e.target.value)} required />
+                <input
+                  type={showPassword ? "text" : "password"}
+                  id="password"
+                  className="form-control"
+                  placeholder="Enter your password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  required
+                />
                 <label htmlFor="password">Password:</label>
               </div>
-              <span className="input-group-text" style={{ cursor: 'pointer' }}>
-                <i id="togglePassword" className={showPassword ? 'bi bi-eye' : 'bi bi-eye-slash'} onClick={() => setShowPassword(!showPassword)}></i>
+              <span className="input-group-text" style={{ cursor: "pointer" }}>
+                <i
+                  id="togglePassword"
+                  className={showPassword ? "bi bi-eye" : "bi bi-eye-slash"}
+                  onClick={() => setShowPassword(!showPassword)}
+                ></i>
               </span>
             </div>
 
@@ -66,11 +86,14 @@ const Login = () => {
                 Log in
               </button>
             </div>
-            
+
             {message && <p className="mt-3 text-danger">{message}</p>}
 
             <div className="mt-3">
-              <p>Don't have an account? Register now!</p>
+              <p>
+                Don't have an account? Register now!{" "}
+                <Link to="/register">Register now!</Link>
+              </p>
             </div>
           </form>
         </div>
