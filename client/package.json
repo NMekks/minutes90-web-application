@@ -1,6 +1,7 @@
 {
   "name": "client",
   "version": "0.1.0",
+  "proxy": "http://localhost/minutes90-web-application/public",
   "private": true,
   "dependencies": {
     "@testing-library/dom": "^10.4.1",
