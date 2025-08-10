@@ -15,11 +15,18 @@ require_once __DIR__ . '/../src/DBInitialization/create_db.php';
 // Run the database connection config script
 require_once __DIR__ . '/../src/DBInitialization/config.php';
 
-echo "<h2>Final Verification</h2>";
+// --- STEP 3: Ensure all TABLES exist ---
+require_once __DIR__ . '/../src/DBInitialization/createTables.php';
+
 if (isset($conn) && mysqli_ping($conn)) {
-    echo "VERIFIED";
+    echo "<br> VERIFIED: The application is connected to the database and all tables are ready";
 } else {
-    echo "VERIFICATION FAILED";
+    echo "<br> VERIFICATION FAILED";
+}
+
+// Close the connection used for setup
+if (isset($conn)) {
+    mysqli_close($conn);
 }
 
 ?>

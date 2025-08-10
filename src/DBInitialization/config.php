@@ -18,6 +18,6 @@ if ($conn == false) {
   die("Could not connect to the database '" . DB_NAME . mysqli_connect_error());
 }
 
-echo "Connection Successful!";
+echo "<br>Connection Successful!";
 
 ?>
