@@ -10,12 +10,12 @@ if(!defined('USERNAME')){
 if(!defined('PASSWORD')){
   define("PASSWORD", "");
 }
-if(!defined('DB_NAME')){
-  define("DB_NAME", "minutes90");
-}
+// if(!defined('DB_NAME')){
+//   define("DB_NAME", "minutes90");
+// }
 
 // CONNECTING TO DATABASE
-$conn = mysqli_connect(SERVER, USERNAME, PASSWORD, DB_NAME);
+$conn = mysqli_connect(SERVER, USERNAME, PASSWORD);
 
 if($conn == false){
   die("Could not connect to the database. ERROR: " . mysqli_connect_error());
