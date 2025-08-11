@@ -1,6 +1,21 @@
 <IfModule mod_rewrite.c>
-    RewriteEngine On
-    RewriteCond %{REQUEST_FILENAME} !-f
-    RewriteCond %{REQUEST_FILENAME} !-d
-    RewriteRule ^ index.php [QSA,L]
+  # Turn on the URL rewriting engine
+  RewriteEngine On
+
+  # --- Rule #1: Handle API Requests ---
+  # If the requested URL starts with "api/", this rule will match.
+  # It tells the server to stop processing and pass the request
+  # directly to your PHP router located at "public/index.php".
+  # The [L] flag means "Last rule," so it stops here if it matches.
+  RewriteRule ^api/(.*)$ public/index.php [L]
+
+  # --- Rule #2: Handle React Application Routing ---
+  # These rules will only be checked if the API rule above did not match.
+  # If the request is NOT for a real file that exists on the server...
+  RewriteCond %{REQUEST_FILENAME} !-f
+  # ...and the request is NOT for a real directory that exists...
+  RewriteCond %{REQUEST_FILENAME} !-d
+  # ...then forward the request to the main entry point of your React app.
+  # This allows React Router to handle all the page URLs like /profile/1, /search, etc.
+  RewriteRule ^(.*)$ /index.html [L]
 </IfModule>
