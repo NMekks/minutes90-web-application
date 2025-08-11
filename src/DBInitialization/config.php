@@ -1,23 +1,32 @@
 <?php
+// This is the API-SAFE configuration file.
+// Its only job is to create a database connection and make it available.
+// It produces NO output.
 
-// 1. Get the variables from the $_ENV array
+// This file assumes the .env variables have already been loaded by the script that includes it.
 $host = $_ENV['DB_HOST'];
 $db_name = $_ENV['DB_NAME'];
 $user = $_ENV['DB_USER'];
 $pass = $_ENV['DB_PASS'];
 
-// 2. Define constants (as you originally wanted)
-if (!defined('SERVER'))   define("SERVER", $host);
-if (!defined('USERNAME')) define("USERNAME", $user);
-if (!defined('PASSWORD')) define("PASSWORD", $pass);
-if (!defined('DB_NAME'))  define("DB_NAME", $db_name);
+// Establish the database connection.
+$conn = mysqli_connect($host, $user, $pass, $db_name);
 
-$conn = mysqli_connect(SERVER, USERNAME, PASSWORD, DB_NAME);
-
+// Check the connection and handle errors gracefully for an API.
 if ($conn == false) {
-  die("Could not connect to the database '" . DB_NAME . mysqli_connect_error());
+  // Log the real error for developers to see in the PHP error logs.
+  error_log("MySQLi Connection Error: " . mysqli_connect_error());
+  
+  // Send a proper JSON error response back to the frontend.
+  http_response_code(500);
+  echo json_encode(['message' => 'Database service is unavailable. Please try again later.']);
+  
+  // Stop the script.
+  exit();
 }
 
-echo "<br>Connection Successful!";
+// Set the character set for the connection.
+mysqli_set_charset($conn, "utf8mb4");
 
+// The $conn variable is now ready for any script that includes this file.
 ?>

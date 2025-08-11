@@ -1,32 +1,44 @@
 <?php
+// This is your LIVE API ROUTER.
+// All requests from React will come here.
 
-echo "<h1>Database Setup Orchestrator</h1>";
-echo "<p>This script will first attempt to create the database, then it will attempt to connect to it.</p>";
-echo "<hr>";
+// Set global headers for all API responses
+header("Access-Control-Allow-Origin: *");
+header("Content-Type: application/json; charset=UTF-8");
+header("Access-Control-Allow-Methods: POST, GET, OPTIONS");
+header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
 
-require_once __DIR__ . '/../vendor/autoload.php';
-$dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/../');
-$dotenv->load();
-
-
-// Run the database creation script
-require_once __DIR__ . '/../src/DBInitialization/create_db.php';
-
-// Run the database connection config script
-require_once __DIR__ . '/../src/DBInitialization/config.php';
-
-// --- STEP 3: Ensure all TABLES exist ---
-require_once __DIR__ . '/../src/DBInitialization/createTables.php';
-
-if (isset($conn) && mysqli_ping($conn)) {
-    echo "<br> VERIFIED: The application is connected to the database and all tables are ready";
-} else {
-    echo "<br> VERIFICATION FAILED";
+// Handle preflight CORS requests from the browser
+if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
+    exit();
 }
 
-// Close the connection used for setup
-if (isset($conn)) {
-    mysqli_close($conn);
+// Load Environment Variables for every request
+require_once __DIR__ . '/vendor/autoload.php';
+$dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
+$dotenv->load();
+
+// Simple Router Logic
+$request_uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+$base_path = str_replace('/index.php', '', $_SERVER['SCRIPT_NAME']);
+$endpoint = str_replace($base_path, '', $request_uri);
+
+// Direct the request to the correct API file
+switch ($endpoint) {
+    case '/api/register':
+        require_once __DIR__ . '/../src/api/register.php';
+        break;
+
+    // --- THIS CASE IS NOW VALID ---
+    case '/api/login':
+        require_once __DIR__ . '/../src/api/login.php';
+        break;
+
+    default:
+        // If the endpoint doesn't match, send a 404 Not Found error
+        http_response_code(404);
+        echo json_encode(['message' => 'Endpoint not found.']);
+        break;
 }
 
 ?>
