@@ -48,7 +48,7 @@ This MVP has been fully deployed, but please be aware of the current status of s
 ## **Project Structure**
 
 The project is organized into a main backend application and a `client` directory for the React frontend.
-
+```
 minutes90-web-application/
 ├── client/
 │ ├── build/ # The compiled, production-ready React app
@@ -68,7 +68,7 @@ minutes90-web-application/
 ├── .htaccess # Main router for React and API on live server
 ├── composer.json # Backend dependencies
 └── setup.php # Local database setup script
-
+```
 
 ## **Database Schema**
 
